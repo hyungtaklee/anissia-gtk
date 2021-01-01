@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gresource>
+<gresources>
     <gresource prefix="/com/taskidle/anissiaapp">
         <file preprocess="xml-stripblanks">window.ui</file>
     </gresource>
-</gresource>
+</gresources>
