@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Anissia
+Icon=anissiaapp
+StartupNotify=true
+Exec=@bindir@/anissiaapp
