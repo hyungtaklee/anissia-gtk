@@ -4,7 +4,7 @@ CFLAGS = $(shell $(PKGCONFIG) --cflags gtk+-3.0)
 LIBS = $(shell $(PKGCONFIG) --libs gtk+-3.0)
 GLIB_COMPILE_RESOURCES = $(shell $(PKGCONFIG) --variable=glib_compile_resources gio-2.0)
 
-SRC = anissiaapp.c anissiaappwin.c main.c
+SRC = anissiaapp.c cJSON.c requester.c anissiaapplist.c anissiaappwin.c  main.c
 BUILT_SRC = resources.c
 
 OBJS = $(BUILT_SRC:.c=.o) $(SRC:.c=.o)

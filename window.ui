@@ -13,7 +13,7 @@
           <object class="GtkHeaderBar" id="header">
             <property name="visible">True</property>
             <child type="title">
-              <object class="GtkStackSwithcer" id="tabs">
+              <object class="GtkStackSwitcher" id="tabs">
                 <property name="visible">True</property>
                 <property name="stack">stack</property>
               </object>

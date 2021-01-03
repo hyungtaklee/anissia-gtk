@@ -24,6 +24,8 @@ bool requester_init(struct request_data *data)
     }
     memcpy(&(data->serv_ip), serv_info->ai_addr, sizeof(struct sockaddr));
     freeaddrinfo(serv_info);
+
+    return true;
 }
 
 bool requester_request(struct request_data *data, enum DAY day, int page_num, int org_num)
@@ -85,7 +87,7 @@ bool requester_request(struct request_data *data, enum DAY day, int page_num, in
      * simple-c-example-of-doing-an-http-post-and-consuming-the-response
      */
     char *receive_buf = malloc(sizeof(char) * RECV_BUF_SIZE);
-    memset(receive_buf, 0, sizeof(receive_buf));
+    memset(receive_buf, 0, sizeof(char) * RECV_BUF_SIZE); // _msize(p)
     total = RECV_BUF_SIZE - 1;
     int received = 0;
     ssize_t bytes;
@@ -190,8 +192,8 @@ bool parse_to_json(struct request_data *data)
     free(data->json_str);
 
     // DEBUG
-    printf("FILE: %s\tLINE: %d\n%s\n\n", __FILE__, __LINE__,
-            cJSON_Print(data->json_data));
+    // printf("FILE: %s\tLINE: %d\n%s\n\n", __FILE__, __LINE__,
+    //         cJSON_Print(data->json_data));
 
     return true;
 }
@@ -265,4 +267,83 @@ bool is_totally_received(int received, char *recv_buf)
         return true;
     else
         return false;
+}
+
+bool parse_json_info(struct ani_info *dest, const cJSON *src_json)
+{
+    cJSON *trav = src_json->child;
+    int int_data[8] = {0, };
+    char *str_data[8] = {0, };
+    int i;
+    wchar_t *title_data;
+
+    /*
+    * parsing order
+    * i (id) valueint
+    * s (title) valuestring
+    * t (time) valuestring
+    * g (genre) valuestring
+    * l (url) valuestring
+    * a (status) valueint
+    * sd (start date) valuestring
+    * ed (end date) valuestring 
+    */
+    const bool ani_info_copy[8] = {true, false, false, false, false, true, false, false};
+
+    for (i = 0; i < 8; i++) {
+        if (trav == NULL) {
+            return false;
+        }
+        if (ani_info_copy[i]) {
+            int_data[i] = trav->valueint;
+        }
+        else {
+            size_t len = malloc_usable_size(trav->valuestring);
+            str_data[i] = malloc(len);
+            memcpy(str_data[i], trav->valuestring, len);
+        }
+        trav = trav->next;
+    }
+
+    dest->id = int_data[0];
+    dest->title = str_data[1];
+    dest->time = str_data[2];
+    dest->genre = str_data[3];
+    dest->url = str_data[4];
+    dest->status = int_data[5];
+    dest->start_date = str_data[6];
+    dest->end_date = str_data[7];
+
+    return true;
+}
+void clean_ani_info(struct ani_info *info)
+{
+    /* DEBUG */
+    print_ani_info(info);
+
+    if (info->title)
+        free(info->title);
+    
+    if (info->time)
+        free(info->time);
+
+    if (info->genre)
+        free(info->genre);
+    
+    if (info->url)
+        free(info->url);
+    
+    if (info->start_date)
+        free(info->start_date);
+
+    if (info->end_date)
+        free(info->end_date);
+}
+
+void print_ani_info(const struct ani_info *a)
+{
+    g_print("id: %d\nstatus: %d\ntime: %s\ntitle: ", a->id, a->status, a->time);
+    g_print("%s", a->title);
+    g_print("\ngenre: %s\nstart_date: %s\nend_date: %s\nurl: %s\n",
+           a->genre, a->start_date, a->end_date, a->url);
 }

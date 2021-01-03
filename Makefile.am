@@ -15,6 +15,9 @@ anissiaapp_LDADD = $(GTK_LIBS)
 anissiaapp_SOURCES = 				\
 	main.c 					\
 	anissiaapp.c anissiaapp.h 		\
+	anissiaapplist.c anissiaapplist.h	\
+	cJSON.c cJSON.h 			\
+	requester.c requestor.h	\ 
 	anissiaappwin.c anissiaappwin.h 	\
 	resources.c
 

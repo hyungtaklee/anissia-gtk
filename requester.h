@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <malloc.h>
+#include <gtk/gtk.h>
 
 #include "cJSON.h"
 
@@ -25,6 +27,18 @@ struct request_data
     char *json_str;
 };
 
+struct ani_info
+{
+    int id;
+    bool status;
+    char *time;
+    char *title;
+    char *genre;
+    char *start_date;
+    char *end_date;
+    char *url;
+};
+
 bool requester_init(struct request_data *data);
 bool requester_request(struct request_data *data, enum DAY day, int page_num, int org_num);
 bool is_response_ok(char *resp);
@@ -34,5 +48,8 @@ char *requester_create_url(enum DAY day, int page_num, int org_num);
 struct request_data *requester_create_data_struct();
 char *request_create_get_req(const char *url);
 bool is_totally_received(int received, char *recv_buf);
+bool parse_json_info(struct ani_info *dest, const cJSON *src_json);
+void clean_ani_info(struct ani_info *dest);
+void print_ani_info(const struct ani_info *a);
 
 #endif

@@ -1,1 +1,6 @@
 .vscode/c_cpp_properties.json
+resources.o
+main.o
+anissiaappwin.o
+anissiaapp.o
+anissiaapp
