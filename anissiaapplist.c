@@ -57,7 +57,7 @@ void anissia_app_list_add_columns(GtkTreeView *treeview)
 
     /* column for symbolic icon (status) */
     renderer = gtk_cell_renderer_pixbuf_new();
-    column = gtk_tree_view_column_new_with_attributes("Status",
+    column = gtk_tree_view_column_new_with_attributes("",
                                                   renderer,
                                                   "icon-name",
                                                   COLUMN_STATUS,
@@ -70,7 +70,7 @@ void anissia_app_list_add_columns(GtkTreeView *treeview)
 
     /* column for time */
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("Time",
+    column = gtk_tree_view_column_new_with_attributes("방영시간",
                                                       renderer,
                                                       "text",
                                                       COLUMN_TIME,
@@ -84,7 +84,7 @@ void anissia_app_list_add_columns(GtkTreeView *treeview)
 
     /* column for title */
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("Title",
+    column = gtk_tree_view_column_new_with_attributes("제목",
                                                       renderer,
                                                       "text",
                                                       COLUMN_TITLE,
@@ -92,4 +92,43 @@ void anissia_app_list_add_columns(GtkTreeView *treeview)
     gtk_tree_view_column_set_sort_column_id(column, COLUMN_TITLE);
     gtk_tree_view_append_column(treeview, column);
 
+    /* column for genre */
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes("장르",
+                                                      renderer,
+                                                      "text",
+                                                      COLUMN_GENRE,
+                                                      NULL);
+    gtk_tree_view_column_set_sort_column_id(column, COLUMN_GENRE);
+    gtk_tree_view_append_column(treeview, column);
+
+    /* column for start date */
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes("시작일",
+                                                      renderer,
+                                                      "text",
+                                                      COLUMN_START,
+                                                      NULL);
+    gtk_tree_view_column_set_sort_column_id(column, COLUMN_START);
+    gtk_tree_view_append_column(treeview, column);
+
+    /* column for end date */
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes("종료일",
+                                                      renderer,
+                                                      "text",
+                                                      COLUMN_END,
+                                                      NULL);
+    gtk_tree_view_column_set_sort_column_id(column, COLUMN_END);
+    gtk_tree_view_append_column(treeview, column);
+
+    /* column for url */
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes("링크",
+                                                      renderer,
+                                                      "text",
+                                                      COLUMN_URL,
+                                                      NULL);
+    gtk_tree_view_column_set_sort_column_id(column, COLUMN_URL);
+    gtk_tree_view_append_column(treeview, column);
 }
