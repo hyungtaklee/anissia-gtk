@@ -11,7 +11,7 @@ OBJS = $(BUILT_SRC:.c=.o) $(SRC:.c=.o)
 
 all: anissiaapp
 
-resources.c: anissiaapp.gresource.xml window.ui
+resources.c: anissiaapp.gresource.xml window.ui app-menu.ui
 	$(GLIB_COMPILE_RESOURCES) anissiaapp.gresource.xml --target=$@ --sourcedir=. --generate-source
 
 %.o: %.c

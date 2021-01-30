@@ -23,12 +23,13 @@ anissiaapp_SOURCES = 				\
 
 BUILT_SOURCES = resources.c
 
-resources.c: anissiaapp.gresource.xml window.ui
+resources.c: anissiaapp.gresource.xml window.ui app-menu.ui
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) $(srcdir)/anissiaapp.gresource.xml \
 		--target=$@ --sourcedir=$(srcdir) --generate-source
 
 EXTRA_DIST = 					\
-	window.ui 				\
+	window.ui 					\
+	app-menu.ui					\
 	anissiaapp.gresource.xml
 
 -include $(top_srcdir)/git.mk
