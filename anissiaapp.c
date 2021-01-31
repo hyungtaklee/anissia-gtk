@@ -59,14 +59,8 @@ static void anissia_app_activate(GApplication *app)
     struct request_data *json_data[7];
     gchar *day_name[] = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
 
+    /* create new window for the program */
     win = anissia_app_window_new(ANISSIA_APP(app));
-    // gtk_window_present(GTK_WINDOW(win));
-
-    windows = gtk_application_get_windows(GTK_APPLICATION(app));
-    if (windows)
-        win = ANISSIA_APP_WINDOW(windows->data);
-    else
-        win = anissia_app_window_new(ANISSIA_APP(app));
     
     /* run anissia-cli and save to each file */
     for (i = 0; i < 7; i++) {
